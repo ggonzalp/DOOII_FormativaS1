@@ -27,4 +27,20 @@ Pedido
 └── PedidoExpress
 - Pedido además mantiene una relación de composición con DirecciónEntrega.
 
+#Ejecución
+1° Clonar el repositorio: https://github.com/ggonzalp/DOOII_FormativaS1.git
+
+2° Abrir el proyecto en IntelliJ IDEA
+
+3° Ejecutar la clase principal: src/ui/Main.java
+
+4° El programa cargará automáticamente los datos ingresados de forma local y manual.
+
+Autoría Estudiante: Gabriela González Peirano 
+Asignatura: Desarrollo Orientado a Objetos II
+Instituto: DuocUC
+
+
+
+
 
