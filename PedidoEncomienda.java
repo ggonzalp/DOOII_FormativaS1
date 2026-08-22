@@ -8,55 +8,54 @@ public class PedidoEncomienda extends Pedido {
 
     /**
      * Constructor de la clase PedidoEncomienda
-     *
      * @param tipoPedido         Tipo de pedido.
      * @param idPedido           Número de identificación del pedido.
      * @param direccionEntrega   Dirección de entrega del pedido.
-     * @param validarEmpaquetado Validación de empaquetado (peso y embalaje).
+     * @param distanciaKm        Distancia en kilómetros del lugar de entrega del producto.
+     * @param validarEmpaquetado Validar el peso y empaquetado del pedido.
      */
-    public PedidoEncomienda(String tipoPedido, int idPedido, DireccionEntrega direccionEntrega, boolean validarEmpaquetado) {
-        super(tipoPedido, idPedido, direccionEntrega);
+    public PedidoEncomienda(String tipoPedido, int idPedido, DireccionEntrega direccionEntrega, int distanciaKm, boolean validarEmpaquetado) {
+        super(tipoPedido, idPedido, direccionEntrega, distanciaKm);
 
         this.validarEmpaquetado = validarEmpaquetado;
     }
 
-    //Método getter
-    public boolean getValidarEmpaquetado() {
+    public boolean isValidarEmpaquetado() {
         return validarEmpaquetado;
     }
 
-    //Método setter
     public void setValidarEmpaquetado(boolean validarEmpaquetado) {
         this.validarEmpaquetado = validarEmpaquetado;
     }
 
     /**
-     * Método asignarRepartidor
-     * muestra la información en consola.
-     */
-    @Override
-    public void asignarRepartidor() {
-        super.asignarRepartidor();
-        System.out.println("\nValidando peso y embalaje... ");
-    }
-
-    /**
-     * Método asignarRepartidor
+     * Metodo asignarRepartidor
      * @param nombreRepartidor Nombre del repartidor.
      * @throws IllegalStateException Si el paquete no cumple con el peso ni embalaje adecuado, no es posible asignar el pedido.
      */
     @Override
     public void asignarRepartidor(String nombreRepartidor) {
-        asignarRepartidor();
+        super.asignarRepartidor();
+        System.out.println("\nValidando peso y embalaje... ");
 
         //Validador de validarEmpaquetado.
         if (validarEmpaquetado == true) {
             System.out.println("Peso y empaquetado correctos: Sí.");
-            System.out.println("\nPeso y empaquetado validados correctamente.");
+            System.out.println("Peso y empaquetado validados correctamente.");
         } else {
             throw new IllegalStateException("Peso y empaquetado correctos: No.");
         }
-        System.out.println("Asignando repartidor...");
+        System.out.println("\nAsignando repartidor...");
         System.out.println("Repartidor asignado: " + nombreRepartidor);
+    }
+
+    /**
+     * Metodo que calcula el tiempo de entrega del pedido.
+     * @return tiempo estimado de entrega del pedido.
+     */
+
+    @Override
+    public int calcularTiempoEntrega() {
+       return ((int) Math.round(20 + (1.5 * getDistanciaKm())));
     }
 }
