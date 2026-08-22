@@ -36,7 +36,7 @@ Pedido
 
 
 #Ejecución
-1° Clonar el repositorio: 
+1° Clonar el repositorio: https://github.com/ggonzalp/DOOII_FormativaS1S2.git
 
 2° Abrir el proyecto en IntelliJ IDEA
 
