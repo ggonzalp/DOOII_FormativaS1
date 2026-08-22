@@ -2,45 +2,50 @@
  * Clase principal del programa
  * Es la entrada al sistema.
  */
-
 public class Main {
   public static void main(String[] args) {
     System.out.println("=====================");
     System.out.println("----- SpeedFast -----");
     System.out.println("=====================");
 
-    Pedido pedido1 = new PedidoComida("PEDIDO COMIDA", 101, new DireccionEntrega(202, "Los aromos", "Chillán"), 2, true);
-    try {
-      pedido1.procesarPedido("Isidora López");
-    }catch (IllegalStateException e) {
-      System.out.println(e.getMessage() + "\nNo es posible asignar repartidor para este pedido.");
-    }
+    System.out.println("\n--- PRUEBA DE SOBRECARGA ---");
 
-    System.out.println("\n----------------------------");
+    PedidoComida pedidoComida = new PedidoComida("PEDIDO COMIDA", 1, new DireccionEntrega(23, "Las golondrinas", "Santiago"), true);
+    PedidoEncomienda pedidoEncomienda = new PedidoEncomienda("PEDIDO ENCOMIENDA", 2, new DireccionEntrega(567, "Los gorriones", "Valparaíso"), false);
+    PedidoExpress pedidoExpress = new PedidoExpress("PEDIDO EXPRESS", 3, new DireccionEntrega(536, "Los canarios", "Concepción"), true);
 
-    Pedido pedido2 = new PedidoEncomienda("PEDIDO ENCOMIENDA", 102, new DireccionEntrega(303, "Las azucenas", "Concepción"), 12, false);
     try {
-      pedido2.procesarPedido("Roberto Labra");
+      pedidoComida.asignarRepartidor("Isidora Martínez");
     } catch (IllegalStateException e) {
-      System.out.println(e.getMessage() + "\nNo es posible asignar repartidor para este pedido.");
+      System.out.println(e.getMessage() + "\nEl pedido necesita mochila térmica. \nNo es posible asignar repartidor. ");
     }
 
-    System.out.println("\n----------------------------");
+    System.out.println("\n-----------------------------\n");
 
-    Pedido pedido3 = new PedidoExpress("PEDIDO EXPRESS",103, new DireccionEntrega(202, "Los maitenes", "Temuco"), 6, true);
-    try {
-      pedido3.procesarPedido("Martina Donaire");
+    try{
+      pedidoEncomienda.asignarRepartidor("Roberto Llanos");
     } catch (IllegalStateException e) {
-      System.out.println(e.getMessage() + "\nNo es posible asignar repartidor para este pedido.");
+      System.out.println(e.getMessage() + "\nEl pedido no cuenta con el peso ni embalaje adecuados.");
     }
 
-    System.out.println("\n---Comparación tiempos de pedido---");
-    System.out.println("Pedido Comida: " + pedido1.calcularTiempoEntrega() + " minutos");
-    System.out.println("Pedido Encomienda: " + pedido2.calcularTiempoEntrega() + " minutos");
-    System.out.println("Pedido Express: " + pedido3.calcularTiempoEntrega() + " minutos");
+    System.out.println("\n-----------------------------\n");
 
-    System.out.println("\n======================" +
-                       "\n---FIN DEL PROGRAMA---" +
-                       "\n======================");
+    try{
+      pedidoExpress.asignarRepartidor("Lucas Martínez");
+
+    } catch (IllegalStateException e) {
+      System.out.println(e.getMessage() + "\nNo hay repartidores cerca de la ubicación solicitada.");
+    }
+
+    System.out.println("\n-----------------------------\n");
+
+    System.out.println("--- PRUEBA DE SOBRESCRITURA ---");
+
+    pedidoComida.asignarRepartidor();
+    System.out.println("\n-----------------------------\n");
+    pedidoEncomienda.asignarRepartidor();
+    System.out.println("\n-----------------------------\n");
+    pedidoExpress.asignarRepartidor();
+    System.out.println("\n-----------------------------\n");
   }
 }
