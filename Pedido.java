@@ -3,28 +3,31 @@
  * Representa un pedido genérico.
  */
 
-public class Pedido {
+public abstract class Pedido {
 
     private String tipoPedido;
     private int idPedido;
     private DireccionEntrega direccionEntrega;
+    private int distanciaKm;
 
     /**
      * Constructor de la clase Pedido:
-     * @param tipoPedido tipo de pedido.
-     * @param idPedido Número de identificación del pedido.
+     * @param tipoPedido       tipo de pedido.
+     * @param idPedido         Número de identificación del pedido.
      * @param direccionEntrega Dirección de entrega del pedido.
+     * @param distanciaKm      distancia en km del punto de entrega del pedido.
      */
-    public Pedido(String tipoPedido, int idPedido, DireccionEntrega direccionEntrega){
+    public Pedido(String tipoPedido, int idPedido, DireccionEntrega direccionEntrega, int distanciaKm) {
 
         this.tipoPedido = tipoPedido;
         this.idPedido = idPedido;
         this.direccionEntrega = direccionEntrega;
+        this.distanciaKm = distanciaKm;
     }
 
     //Métodos getter.
 
-    public String getTipoPedido(){
+    public String getTipoPedido() {
         return tipoPedido;
     }
 
@@ -34,6 +37,10 @@ public class Pedido {
 
     public DireccionEntrega getDireccionEntrega() {
         return direccionEntrega;
+    }
+
+    public int getDistanciaKm() {
+        return distanciaKm;
     }
 
     //Métodos setter.
@@ -50,24 +57,43 @@ public class Pedido {
         this.direccionEntrega = direccionEntrega;
     }
 
-    /**
-     * Método asignarRepartidor
-     * Muestra los datos en consola.
-     */
-    public void asignarRepartidor() {
-
-        System.out.println("\n[" + tipoPedido + "]");
-        System.out.println("N° " + idPedido);
-        System.out.println("Dirección de entrega: " + direccionEntrega);
+    public void setDistanciaKm(int distanciaKm) {
+        this.distanciaKm = distanciaKm;
     }
 
     /**
-     * Método asignarRepartidor
-     * @param nombreRepartidor Nombre del repartidor.
+     * Metodo concreto mostrarResumen.
+     * Muestra los datos en consola.
      */
-    public void asignarRepartidor(String nombreRepartidor){
-        asignarRepartidor();
+    public void mostrarResumen() {
+        System.out.println("\n[" + tipoPedido + "]" +
+                "\nN° " + idPedido +
+                "\nDirección de entrega: " + direccionEntrega +
+                "\nDistancia: " + distanciaKm + " Km.");
+    }
+
+    public void asignarRepartidor() {
+    }
+
+    public void asignarRepartidor(String nombreRepartidor) {
         System.out.println("Buscando repartidor...");
         System.out.println("Repartidor asignado: " + nombreRepartidor);
+    }
+
+    /**
+     * Metodo abstracto que calcula el tiempo de entrega del pedido.
+     * @return tiempo de espera del pedido.
+     */
+    public abstract int calcularTiempoEntrega();
+
+    /**
+     * Template Method
+     * @param nombreRepartidor Nombre del repartidor.
+     */
+    public void procesarPedido(String nombreRepartidor) {
+        mostrarResumen();
+        asignarRepartidor(nombreRepartidor);
+        int tiempo = calcularTiempoEntrega();
+        System.out.println("\nTiempo estimado de entrega: " + tiempo + " minutos.");
     }
 }
